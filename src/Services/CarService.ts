@@ -31,6 +31,7 @@ class CarService {
 
   public async update(id: string, car: ICar) {
     const result = await this.carODM.update(id, car);
+    if (result === null) throw new NotFoundError('Car not found');
     return this.createCarDomain(result as ICar);
   }
 }

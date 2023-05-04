@@ -6,7 +6,6 @@ import {
   isValidObjectId,
 } from 'mongoose';
 import UnprocessableEntityError from '../Errors/UnprocessableEntityError';
-import NotFoundError from '../Errors/NotFoundError';
 
 abstract class AbstractODM<T> {
   protected model: Model<T>;
@@ -39,7 +38,7 @@ abstract class AbstractODM<T> {
   public async update(id: string, obj: Partial<T>) {
     this.checkValidId(id);
     const result = await this.model.findByIdAndUpdate(id, obj);
-    if (result === null) throw new NotFoundError('Motorcycle not found');
+    if (result === null) return null;
     return { id, ...obj };
   }
 }

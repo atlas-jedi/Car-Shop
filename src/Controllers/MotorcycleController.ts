@@ -33,7 +33,7 @@ class MotorcycleController {
   public async create() {
     const motorcycle: IMotorcycle = this.req.body;
     try {
-      const newMotorcycle = await this.service.createCar(motorcycle);
+      const newMotorcycle = await this.service.createMotorcycle(motorcycle);
       return this.res.status(201).json(newMotorcycle);
     } catch (err) {
       this.next(err);

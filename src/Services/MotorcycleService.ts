@@ -31,6 +31,7 @@ class MotorcycleService {
 
   public async update(id: string, motorcycle: IMotorcycle) {
     const result = await this.motorcycleODM.update(id, motorcycle);
+    if (result === null) throw new NotFoundError('Motorcycle not found');
     return this.createMotorcycleDomain(result as IMotorcycle);
   }
 }
