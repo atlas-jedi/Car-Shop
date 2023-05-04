@@ -6,7 +6,7 @@ import NotFoundError from '../Errors/NotFoundError';
 class CarService {
   private carODM = new CarODM();
 
-  private createCarDomain(car: ICar | null): Car | null {
+  private createCarDomain(car: ICar): Car | null {
     if (car) {
       return new Car(car);
     }
