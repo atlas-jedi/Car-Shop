@@ -39,6 +39,17 @@ class CarController {
       this.next(err);
     }
   }
+
+  public async update() {
+    const { id } = this.req.params;
+    const car: ICar = this.req.body;
+    try {
+      const result = await this.service.update(id, car);
+      return this.res.status(200).json(result);
+    } catch (err) {
+      this.next(err);
+    }
+  }
 }
 
 export default CarController;
