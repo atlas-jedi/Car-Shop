@@ -3,8 +3,10 @@ import {
   Schema,
   model,
   models,
+  isValidObjectId,
 } from 'mongoose';
 import ICar from '../Interfaces/ICar';
+import UnprocessableEntityError from '../Errors/UnprocessableEntityError';
 
 class CarODM {
   private schema: Schema;
@@ -25,6 +27,15 @@ class CarODM {
 
   public async create(car: ICar): Promise<ICar> {
     return this.model.create(car);
+  }
+
+  public async findAll(): Promise<ICar[]> {
+    return this.model.find({});
+  }
+
+  public async findById(id: string): Promise<ICar | null> {
+    if (!isValidObjectId(id)) throw new UnprocessableEntityError('Invalid mongo id');
+    return this.model.findById(id);
   }
 }
 
