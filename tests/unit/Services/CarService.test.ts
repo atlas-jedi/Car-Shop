@@ -94,4 +94,30 @@ describe('Testa a unidade Service de Car', function () {
       }
     });
   });
+
+  describe('Deve atualizar carro por id', function () {
+    beforeEach(function () {
+      sinon.restore();
+    });
+
+    it('deve retornar corretamente o carro atualizado', async function () {
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+      
+      const service = new CarService();
+      const result = await service.update('64533cb5c37bbcf2ec7c3fa6', carInput);
+    
+      expect(result).to.be.deep.equal(carOutput);
+    });
+
+    it('deve retornar erro ao tentar atualizar carro inexistente', async function () {
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(null);
+    
+      const service = new CarService();
+      try {
+        await service.update('64533cb5c37bbcf2ec7c366', carInput);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(Error);
+      }
+    });
+  });
 });
